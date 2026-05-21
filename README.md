@@ -33,7 +33,6 @@ The warning is shown with a **30-second forced delay** and clearly explains what
 
 ### Chrome / Edge
 
-> Pending Chrome Web Store review. In the meantime, install manually:
 
 1. Download the latest `phishguard-community-chrome-vX.X.X.zip` from the [Releases](../../releases) page.
 2. Extract the ZIP to a permanent folder (do not delete it after loading).
@@ -45,7 +44,6 @@ The extension is active immediately — no restart required.
 
 ### Firefox
 
-> Pending AMO review. Until then:
 
 1. Download `phishguard-community-firefox-vX.X.X.zip` from [Releases](../../releases).
 2. Extract the ZIP.
@@ -185,7 +183,7 @@ No measurably. The detection runs once per page load (plus a few delayed retries
 Because AitM phishing works by creating urgency. The delay forces a pause and ensures the warning is read before proceeding.
 
 **Is there a version with more features?**
-Yes — a Professional edition for enterprise deployment exists with webhook alerting, Intune/MDM deployment support, user reporting with screenshot capture, trusted badge, multi-language support (EN/DE), and customisable branding. Contact [Base IT GmbH](https://baseit.at) for details.
+Yes — a Professional edition for enterprise deployment exists with webhook alerting, Intune/MDM deployment support, user reporting with screenshot capture, trusted badge, multi-language support (EN/DE), and customisable branding. Contact me for details.
 
 ---
 
@@ -195,9 +193,6 @@ Issues and pull requests are welcome.
 
 - **Bug reports:** [open an issue](../../issues) — include browser version, OS, and the domain that triggered (or failed to trigger) the warning.
 - **False positive / false negative reports:** same — a domain is sufficient, no need to include personal data.
-- **Code:** fork → branch → PR against `main`. The detection engine lives in `shared/detection.js` and is shared between editions. Please add a comment explaining the rationale for any new signal or weight change.
-
-See [DEVELOPMENT.md](DEVELOPMENT.md) for build instructions and project structure.
 
 ---
 
@@ -207,6 +202,6 @@ MIT — free to use, modify, and distribute. See [LICENSE](LICENSE).
 
 ---
 
-*PhishGuard Community Edition is a project by [whennotif•](https://whennotif.io) — enterprise security, no filter.*
+*PhishGuard Community Edition is a project by [whennotif•](https://whennotif.io)*
 
 

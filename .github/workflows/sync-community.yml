@@ -33,7 +33,8 @@ jobs:
           rsync -av --delete community/ public-repo/community/
           rsync -av --delete shared/   public-repo/shared/
           rsync -av --delete assets/   public-repo/assets/
-          cp build.js public-repo/build.js
+          cp build.js              public-repo/build.js
+          cp community/README.md   public-repo/README.md
 
           # Workflows managed separately per repo — not synced
 

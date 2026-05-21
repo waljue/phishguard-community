@@ -218,7 +218,7 @@ function _showWarning(result) {
     });
 
     const learnMore = document.createElement("a");
-    learnMore.href = "https://whennotif.io/aitm-phishing";
+    learnMore.href = "https://whennotif.io/blog/aitm-phishing";
     learnMore.target = "_blank";
     learnMore.rel = "noopener noreferrer";
     Object.assign(learnMore.style, css({

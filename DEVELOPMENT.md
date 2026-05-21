@@ -27,9 +27,7 @@ pro/
   manifest.firefox.json   Firefox MV2
   _locales/en/ _locales/de/
 
-assets/                   Shared icons and images
-                          ⚠ icon16.png, icon48.png, icon128.png still missing
-                            Export from assets/icon-community.svg or replace with edition icons
+assets/                   Shared icons and images (icon16/48/128.png, screenshots)
 
 build.js                  Build script — no npm dependencies required
 package.json              npm scripts wrapper

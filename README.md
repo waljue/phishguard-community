@@ -1,5 +1,7 @@
 # PhishGuard
 
+<img src="assets/icon128.png" width="64" alt="PhishGuard" />
+
 **A browser extension that detects Adversary-in-the-Middle (AitM) phishing attacks targeting Microsoft 365 and Entra ID.**
 
 > *Real threats. Real fixes. No theater.* — [whennotif•](https://whennotif.io)

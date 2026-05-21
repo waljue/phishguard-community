@@ -35,9 +35,7 @@ jobs:
           rsync -av --delete assets/   public-repo/assets/
           cp build.js public-repo/build.js
 
-          # Copy workflows (only the release workflow — not this sync workflow)
-          mkdir -p public-repo/.github/workflows
-          cp .github/workflows/release.yml public-repo/.github/workflows/release.yml
+          # Workflows managed separately per repo — not synced
 
       - name: Commit and push to public repo
         env:

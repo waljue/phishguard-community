@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128">
+  <!-- whennotif• community icon — Deep Black bg, WNI• mark, Threat Red accent -->
+  <rect width="128" height="128" fill="#0A0A0F"/>
+  <!-- Shield shape -->
+  <path d="M64 12 L104 30 L104 68 Q104 96 64 116 Q24 96 24 68 L24 30 Z"
+        fill="none" stroke="#E63946" stroke-width="4"/>
+  <!-- Warning mark -->
+  <text x="64" y="72" text-anchor="middle" font-family="Arial,sans-serif"
+        font-weight="bold" font-size="52" fill="#E63946">!</text>
+  <!-- Dot accent -->
+  <circle cx="64" cy="92" r="5" fill="#E63946"/>
+</svg>

@@ -27,7 +27,7 @@ PhishGuard runs silently in the background and scans every page you visit. When 
 
 The warning is shown with a **30-second forced delay** and clearly explains what is happening and what to do.
 
-![PhishGuard detection overlay](assets/phishguard_community.png)
+![PhishGuard detection overlay](assets/PhishGuard_Community.png)
 
 ---
 

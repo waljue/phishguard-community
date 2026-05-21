@@ -126,7 +126,7 @@ The collapsible **Detection signals** section lists every signal that fired, wit
 - No browsing history is stored or transmitted.
 - Detection runs entirely locally in your browser.
 
-The only external request the extension can make is the "What is AitM?" button, which opens a standard browser tab to [whennotif.io](https://whennotif.io/aitm-phishing).
+The only external request the extension can make is the "What is AitM?" button, which opens a standard browser tab to [whennotif.io](https://whennotif.io/blog/aitm-phishing).
 
 ---
 

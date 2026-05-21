@@ -27,7 +27,7 @@ PhishGuard runs silently in the background and scans every page you visit. When 
 
 The warning is shown with a **30-second forced delay** and clearly explains what is happening and what to do.
 
-![PhishGuard detection overlay](assets/phishguard_community.png)
+![PhishGuard detection overlay](assets/PhishGuard_Community.png)
 
 ---
 
@@ -111,29 +111,7 @@ The extension maintains a list of verified Microsoft domains. If you are on any 
 
 ## What you see when phishing is detected
 
-A full-screen overlay blocks the page with a forced 30-second countdown before the dismiss option becomes available:
-
-```
-┌──────────────────────────────────────────────────────┐
-│ ▌ CRITICAL — PHISHING DETECTED                       │
-│                                                      │
-│ AitM Phishing Attack Detected                        │
-│ whennotif• PhishGuard  ·  Detection confidence: 87%  │
-│                                                      │
-│ ┌──────────────────────────────────────────────────┐ │
-│ │ Do not enter your credentials on this page.      │ │
-│ └──────────────────────────────────────────────────┘ │
-│                                                      │
-│ This page is impersonating a Microsoft 365 / Azure   │
-│ AD login but is hosted on an unverified domain. …    │
-│                                                      │
-│ Suspicious domain: evil-login-microsoft.net          │
-│                                                      │
-│ ▶ Detection signals (4 active, score 14/7)           │
-│                                                      │
-│ [ What is AitM? ]              (30s)  [ Dismiss ]    │
-└──────────────────────────────────────────────────────┘
-```
+A full-screen overlay blocks the page with a forced 30-second countdown before the dismiss option becomes available.
 
 The collapsible **Detection signals** section lists every signal that fired, with its point value — useful for understanding why a page was flagged or reporting a false positive.
 

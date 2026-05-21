@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PhishGuard – Settings</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: #0A0A0F;
+      color: #F0F0F0;
+      font-family: 'Inter', 'Segoe UI', system-ui, Arial, sans-serif;
+      font-size: 14px;
+      min-height: 100vh;
+    }
+
+    .page {
+      max-width: 560px;
+      margin: 0 auto;
+      padding: 40px 24px 60px;
+    }
+
+    /* Header */
+    .header {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 36px;
+      padding-bottom: 24px;
+      border-bottom: 1px solid #1A1A2E;
+    }
+    .header img {
+      width: 36px;
+      height: 36px;
+      object-fit: contain;
+    }
+    .header-text h1 {
+      font-size: 20px;
+      font-weight: 700;
+      color: #F0F0F0;
+      letter-spacing: -0.02em;
+    }
+    .header-text p {
+      font-size: 12px;
+      color: #00B4D8;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      margin-top: 2px;
+    }
+
+    /* Card */
+    .card {
+      background: #12121A;
+      border: 1px solid #1A1A2E;
+      padding: 20px 24px;
+      margin-bottom: 16px;
+    }
+    .card-title {
+      font-size: 11px;
+      font-weight: 700;
+      color: #6b7280;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 16px;
+    }
+
+    /* Toggle row */
+    .toggle-row {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 16px;
+      cursor: pointer;
+    }
+    .toggle-text { flex: 1; }
+    .toggle-label {
+      font-size: 14px;
+      font-weight: 600;
+      color: #F0F0F0;
+      display: block;
+      margin-bottom: 4px;
+    }
+    .toggle-hint {
+      font-size: 12px;
+      color: #6b7280;
+      line-height: 1.5;
+    }
+
+    /* Custom toggle switch */
+    .switch {
+      position: relative;
+      width: 40px;
+      height: 22px;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+    .switch input { opacity: 0; width: 0; height: 0; }
+    .slider {
+      position: absolute;
+      inset: 0;
+      background: #1A1A2E;
+      border: 1px solid #374151;
+      border-radius: 11px;
+      cursor: pointer;
+      transition: background 0.2s, border-color 0.2s;
+    }
+    .slider::before {
+      content: "";
+      position: absolute;
+      width: 14px; height: 14px;
+      left: 3px; top: 3px;
+      background: #6b7280;
+      border-radius: 50%;
+      transition: transform 0.2s, background 0.2s;
+    }
+    input:checked + .slider {
+      background: rgba(0,180,216,0.15);
+      border-color: #00B4D8;
+    }
+    input:checked + .slider::before {
+      transform: translateX(18px);
+      background: #00B4D8;
+    }
+
+    /* Actions */
+    .actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-top: 24px;
+    }
+    .btn-save {
+      padding: 10px 24px;
+      background: #E63946;
+      color: #ffffff;
+      border: none;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      cursor: pointer;
+      font-family: inherit;
+      transition: background 0.15s;
+    }
+    .btn-save:hover { background: #c1121f; }
+    .status {
+      font-size: 12px;
+      color: #00B4D8;
+      font-weight: 600;
+    }
+    .status.error { color: #E63946; }
+
+    /* Footer */
+    .footer {
+      margin-top: 40px;
+      padding-top: 20px;
+      border-top: 1px solid #1A1A2E;
+      font-size: 11px;
+      color: #374151;
+      text-align: center;
+    }
+    .footer a { color: #00B4D8; text-decoration: none; }
+  </style>
+</head>
+<body>
+  <div class="page">
+
+    <div class="header">
+      <img src="../assets/icon128.png" alt="PhishGuard" />
+      <div class="header-text">
+        <h1>PhishGuard</h1>
+        <p>Settings</p>
+      </div>
+    </div>
+
+    <section class="card">
+      <div class="card-title">Detection</div>
+      <label class="toggle-row">
+        <div class="toggle-text">
+          <span class="toggle-label">Verified badge on legitimate Microsoft pages</span>
+          <span class="toggle-hint">Shows a brief confirmation badge when you visit a known-good Microsoft login domain (login.microsoftonline.com etc.).</span>
+        </div>
+        <label class="switch">
+          <input type="checkbox" id="trustedBadge" checked />
+          <span class="slider"></span>
+        </label>
+      </label>
+    </section>
+
+    <div class="actions">
+      <button class="btn-save" id="saveBtn">Save</button>
+      <span class="status" id="statusMsg"></span>
+    </div>
+
+    <div class="footer">
+      <a href="https://whennotif.io" target="_blank" rel="noopener">whennotif•</a>
+      &nbsp;·&nbsp;
+      <a href="https://whennotif.io/blog/aitm-phishing" target="_blank" rel="noopener">What is AitM?</a>
+    </div>
+
+  </div>
+  <script src="options.js"></script>
+</body>
+</html>

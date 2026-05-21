@@ -6,6 +6,16 @@ const _ext = typeof browser !== "undefined" ? browser : chrome;
 
 let _shown = false;
 let _dismissed = false;
+let _settings = { trustedBadgeEnabled: true };
+
+function _loadSettings() {
+    if (!_ext.storage?.local) return;
+    _ext.storage.local.get({ trustedBadgeEnabled: true }, s => { _settings = s; });
+}
+_loadSettings();
+if (_ext.storage?.onChanged) {
+    _ext.storage.onChanged.addListener((_, area) => { if (area === "local") _loadSettings(); });
+}
 
 _ext.runtime.sendMessage({ action: "content_ready" });
 
@@ -14,7 +24,10 @@ _ext.runtime.onMessage.addListener((msg) => {
     if (_dismissed) return;
 
     const host = window.location.hostname.toLowerCase();
-    if (aitm_isLegitDomain(host)) return;
+    if (aitm_isLegitDomain(host)) {
+        if (_settings.trustedBadgeEnabled !== false) _showTrustedBadge();
+        return;
+    }
 
     [0, 800, 2500, 5500, 10000].forEach(delay =>
         setTimeout(() => {
@@ -279,6 +292,41 @@ function _showWarning(result) {
 
     overlay.appendChild(modal);
     document.body.appendChild(overlay);
+}
+
+// --- Trusted badge ---
+
+function _showTrustedBadge() {
+    if (document.getElementById("__aitm_trusted__")) return;
+    const badge = el("div", {
+        id: "__aitm_trusted__",
+        style: css({
+            position: "fixed", bottom: "16px", right: "16px",
+            zIndex: "2147483646",
+            background: "rgba(0,180,216,0.08)",
+            border: "1px solid rgba(0,180,216,0.35)",
+            borderLeft: "3px solid #00B4D8",
+            padding: "8px 12px",
+            fontSize: "12px", fontWeight: "600", color: "#00B4D8",
+            fontFamily: "'Inter','Segoe UI',system-ui,sans-serif",
+            boxShadow: "0 4px 16px rgba(0,0,0,0.4)",
+            display: "flex", alignItems: "center", gap: "8px",
+            cursor: "default", userSelect: "none",
+            maxWidth: "260px",
+        }),
+    });
+    badge.innerHTML =
+        `<span style="font-size:14px">✓</span>` +
+        `<div>` +
+        `<div style="font-size:12px;font-weight:700">Verified Microsoft Login</div>` +
+        `<div style="font-size:11px;font-weight:400;color:rgba(0,180,216,0.7)">${window.location.hostname}</div>` +
+        `</div>`;
+    document.body.appendChild(badge);
+    setTimeout(() => {
+        badge.style.transition = "opacity 0.5s";
+        badge.style.opacity = "0";
+        setTimeout(() => badge.remove(), 600);
+    }, 6000);
 }
 
 // --- Tiny DOM helpers ---

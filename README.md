@@ -29,6 +29,8 @@ PhishGuard runs silently in the background and scans every page you visit. When 
 
 The warning is shown with a **30-second forced delay** and clearly explains what is happening and what to do.
 
+When you visit a **legitimate** Microsoft login page (e.g. `login.microsoftonline.com`), a small **verified badge** appears briefly in the bottom-right corner — confirming the page is genuine. The badge can be disabled in the extension settings (right-click the extension icon → Options).
+
 ![PhishGuard detection overlay](assets/PhishGuard_Community.png)
 
 ---

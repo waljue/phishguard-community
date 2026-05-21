@@ -1,0 +1,95 @@
+name: Release Community Edition
+
+# Trigger: push a version tag  →  git tag v1.2.3 && git push origin v1.2.3
+on:
+  push:
+    tags:
+      - "v*"
+
+permissions:
+  contents: write   # needed to create GitHub Releases
+
+jobs:
+  build-and-release:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      # Inject the tag version into both community manifests before building
+      - name: Patch manifest versions
+        run: |
+          VERSION="${GITHUB_REF_NAME#v}"
+          echo "Patching manifests to version $VERSION"
+          node -e "
+            const fs = require('fs');
+            const files = [
+              'community/manifest.chrome.json',
+              'community/manifest.firefox.json',
+            ];
+            files.forEach(f => {
+              const m = JSON.parse(fs.readFileSync(f, 'utf8'));
+              m.version = '$VERSION';
+              fs.writeFileSync(f, JSON.stringify(m, null, 2) + '\n');
+              console.log('Patched', f, '→', m.version);
+            });
+          "
+
+      - name: Build community edition
+        run: node build.js community
+
+      # Verify output exists before zipping
+      - name: Verify build output
+        run: |
+          ls dist/community-chrome/
+          ls dist/community-firefox/
+
+      - name: Package Chrome / Edge ZIP
+        run: |
+          cd dist/community-chrome
+          zip -r "../../phishguard-community-chrome-${GITHUB_REF_NAME}.zip" .
+          echo "Chrome ZIP: $(du -sh ../../phishguard-community-chrome-${GITHUB_REF_NAME}.zip)"
+
+      - name: Package Firefox XPI (ZIP)
+        run: |
+          cd dist/community-firefox
+          zip -r "../../phishguard-community-firefox-${GITHUB_REF_NAME}.zip" .
+          echo "Firefox ZIP: $(du -sh ../../phishguard-community-firefox-${GITHUB_REF_NAME}.zip)"
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          name: "PhishGuard Community ${{ github.ref_name }}"
+          body: |
+            ## PhishGuard Community ${{ github.ref_name }}
+
+            Browser extension that detects Adversary-in-the-Middle (AitM) phishing attacks
+            impersonating Microsoft 365 / Entra ID login pages.
+
+            ### Installation
+
+            **Chrome / Edge**
+            1. Download `phishguard-community-chrome-${{ github.ref_name }}.zip`
+            2. Extract the ZIP
+            3. Open `chrome://extensions` → Enable **Developer mode** → **Load unpacked** → select the extracted folder
+
+            **Firefox**
+            1. Download `phishguard-community-firefox-${{ github.ref_name }}.zip`
+            2. Open `about:debugging` → **This Firefox** → **Load Temporary Add-on** → select any file inside the extracted folder
+
+            > For a permanent Firefox installation the extension must be signed via AMO or via an enterprise policy.
+
+            ---
+            *Released automatically from tag `${{ github.ref_name }}`*
+          files: |
+            phishguard-community-chrome-${{ github.ref_name }}.zip
+            phishguard-community-firefox-${{ github.ref_name }}.zip
+          generate_release_notes: false
+          draft: false
+          prerelease: ${{ contains(github.ref_name, '-') }}

@@ -1,0 +1,72 @@
+{
+  "type": "object",
+  "properties": {
+    "language": {
+      "title": "Interface language",
+      "description": "Language for the warning overlay. Supported: 'en', 'de'.",
+      "type": "string",
+      "enum": ["en", "de"]
+    },
+    "whitelistDomains": {
+      "title": "Exception domains",
+      "description": "Domains on which the warning overlay is suppressed. Subdomains are included.",
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "webhookEnabled": {
+      "title": "Enable webhook",
+      "description": "Send detection events and user reports to the configured webhook URL.",
+      "type": "boolean"
+    },
+    "webhookUrl": {
+      "title": "Webhook URL",
+      "description": "HTTP(S) endpoint that receives JSON payloads on detection and user reports.",
+      "type": "string"
+    },
+    "webhookApiKey": {
+      "title": "Webhook API key",
+      "description": "Value sent as the 'x-api-key' header with every webhook request.",
+      "type": "string"
+    },
+    "trustedBadgeEnabled": {
+      "title": "Show trusted badge",
+      "description": "Display a verification badge on known-legitimate Microsoft login domains.",
+      "type": "boolean"
+    },
+    "customLogoUrl": {
+      "title": "Custom logo URL",
+      "description": "URL or Base64 data URL for the logo shown in the warning overlay header.",
+      "type": "string"
+    },
+    "customWarningText": {
+      "title": "Custom warning message",
+      "description": "Override the built-in warning text. HTML is supported.",
+      "type": "string"
+    },
+    "showSignalDetails": {
+      "title": "Show signal details panel",
+      "description": "Show the collapsible detection signals breakdown in the warning overlay. Set to false to hide it from end users.",
+      "type": "boolean"
+    },
+    "accentColor": {
+      "title": "Accent color",
+      "description": "Hex color for buttons, borders and highlights in the warning overlay. Example: #00a19a",
+      "type": "string"
+    },
+    "backgroundColor": {
+      "title": "Background color",
+      "description": "Hex color for the warning overlay background. Example: #ffffff",
+      "type": "string"
+    },
+    "textColor": {
+      "title": "Text color",
+      "description": "Hex color for body text in the warning overlay. Example: #0b1f33",
+      "type": "string"
+    },
+    "customLogoUrl": {
+      "title": "Custom logo URL",
+      "description": "URL or Base64 data URL for the logo shown in the warning overlay header.",
+      "type": "string"
+    }
+  }
+}

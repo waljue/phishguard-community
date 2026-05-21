@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PhishGuard Pro – Settings</title>
+  <link rel="stylesheet" href="options.css" />
+</head>
+<body>
+  <div class="page">
+
+    <!-- Header -->
+    <header class="page-header">
+      <div class="header-brand">
+        <img id="headerLogo" src="assets/baseit-logo.png" alt="Logo" />
+        <div>
+          <h1>PhishGuard <span class="pro-badge">PRO</span></h1>
+          <p class="header-sub">Deployment &amp; Configuration Settings</p>
+        </div>
+      </div>
+      <div id="managedBanner" class="managed-banner" hidden>
+        <span>⚙</span>
+        <span>Policy managed — changes are controlled by your IT administration (Intune / GPO).</span>
+      </div>
+    </header>
+
+    <!-- General -->
+    <section class="card">
+      <h2 class="card-title">General</h2>
+      <div class="field-group">
+        <label class="field-label" for="language">Interface language</label>
+        <select id="language" class="input-select">
+          <option value="en">English</option>
+          <option value="de">Deutsch</option>
+        </select>
+        <p class="hint">Controls the language of the warning overlay shown to users.</p>
+      </div>
+      <div class="field-group">
+        <label class="toggle-row">
+          <input type="checkbox" id="trustedBadge" />
+          <span class="toggle-label">Show trusted badge on legitimate Microsoft login pages</span>
+        </label>
+        <p class="hint">Displays a small green verification badge when the user is on a known-good Microsoft domain (login.microsoftonline.com etc.).</p>
+      </div>
+      <div class="field-group">
+        <label class="toggle-row">
+          <input type="checkbox" id="showSignalDetails" />
+          <span class="toggle-label">Show detection signal details in warning overlay</span>
+        </label>
+        <p class="hint">When disabled, the collapsible signal breakdown panel is hidden from end users. Useful for deployments where technical details should not be visible.</p>
+      </div>
+    </section>
+
+    <!-- Exception domains (whitelist) -->
+    <section class="card">
+      <h2 class="card-title">Exception Domains</h2>
+      <p class="card-desc">Domains on this list will never trigger the warning overlay. One entry per line. Subdomains are included automatically.</p>
+      <textarea id="whitelist" rows="5" class="input-textarea" placeholder="login.partner.example.com&#10;sso.mycorp.internal"></textarea>
+      <p class="hint">Example: <code>contoso.com</code> also covers <code>login.contoso.com</code>. Wildcards (<code>*.contoso.com</code>) are supported.</p>
+    </section>
+
+    <!-- Webhook -->
+    <section class="card">
+      <h2 class="card-title">Webhook / Incident Reporting</h2>
+      <p class="card-desc">When a phishing attempt is detected, a JSON payload is sent to the configured endpoint. The same URL is used for user-triggered reports (including screenshot).</p>
+      <div class="field-group">
+        <label class="toggle-row">
+          <input type="checkbox" id="webhookEnabled" />
+          <span class="toggle-label">Enable webhook</span>
+        </label>
+      </div>
+      <div id="webhookFields" class="dependent-fields" hidden>
+        <div class="field-group">
+          <label class="field-label" for="webhookUrl">Webhook URL</label>
+          <input type="url" id="webhookUrl" class="input-text" placeholder="https://prod-xx.westeurope.logic.azure.com/..." />
+        </div>
+        <div class="field-group">
+          <label class="field-label" for="webhookApiKey">API Key <span class="optional">(optional)</span></label>
+          <input type="password" id="webhookApiKey" class="input-text" placeholder="x-api-key header value" />
+          <p class="hint">Sent as <code>x-api-key</code> header with every request.</p>
+        </div>
+        <div class="payload-preview">
+          <div class="payload-preview-title">Detection payload format</div>
+          <pre class="code-block">{
+  "source": "aitm-block-pro",
+  "version": "1.0.0",
+  "type": "detection" | "user_report",
+  "timestamp": "2026-04-23T10:00:00Z",
+  "url": "https://phishing-site.example/login",
+  "host": "phishing-site.example",
+  "score": 14,
+  "threshold": 7,
+  "breakdown": { "domIds": 3, "jsGlobals": 4, ... },
+  "screenshot": "&lt;base64 JPEG — only on user_report&gt;"
+}</pre>
+        </div>
+      </div>
+    </section>
+
+    <!-- Custom CI -->
+    <section class="card">
+      <h2 class="card-title">Custom Branding</h2>
+      <p class="card-desc">Override the default Base IT design. Leave blank to use defaults.</p>
+      <div class="field-row">
+        <div class="field-group">
+          <label class="field-label" for="colorAccent">Accent color</label>
+          <div class="color-row">
+            <input type="color" id="colorAccentPicker" class="input-color" value="#00a19a" />
+            <input type="text" id="colorAccent" class="input-text input-text--sm" placeholder="#00a19a" maxlength="9" />
+          </div>
+        </div>
+        <div class="field-group">
+          <label class="field-label" for="colorBg">Background color</label>
+          <div class="color-row">
+            <input type="color" id="colorBgPicker" class="input-color" value="#ffffff" />
+            <input type="text" id="colorBg" class="input-text input-text--sm" placeholder="#ffffff" maxlength="9" />
+          </div>
+        </div>
+        <div class="field-group">
+          <label class="field-label" for="colorText">Text color</label>
+          <div class="color-row">
+            <input type="color" id="colorTextPicker" class="input-color" value="#0b1f33" />
+            <input type="text" id="colorText" class="input-text input-text--sm" placeholder="#0b1f33" maxlength="9" />
+          </div>
+        </div>
+      </div>
+      <div class="field-group" style="margin-top:16px">
+        <label class="field-label" for="customLogo">Logo URL or Base64 data URL</label>
+        <input type="text" id="customLogo" class="input-text" placeholder="https://cdn.example.com/logo.png  or  data:image/png;base64,..." />
+        <p class="hint">Displayed in the warning overlay header. Recommended size: 22×22 px.</p>
+      </div>
+      <div class="field-group">
+        <label class="field-label" for="customWarningText">Custom warning message <span class="optional">(HTML allowed)</span></label>
+        <textarea id="customWarningText" rows="4" class="input-textarea" placeholder="This page is impersonating a Microsoft 365 login…"></textarea>
+        <p class="hint">Leave blank to use the built-in text for the selected language.</p>
+      </div>
+    </section>
+
+    <!-- Save -->
+    <div class="actions">
+      <button id="saveBtn" class="btn-primary">Save settings</button>
+      <span id="statusMsg" class="status-msg" aria-live="polite"></span>
+    </div>
+
+  </div>
+
+  <script src="options.js"></script>
+</body>
+</html>

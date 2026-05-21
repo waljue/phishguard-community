@@ -1,0 +1,18 @@
+# ── Build output ──────────────────────────────────────────────
+dist/
+
+# ── Legacy root-level files (superseded by community/ and pro/) ─
+/manifest.json
+/content.js
+/background.js
+/options.html
+/options.js
+/options.css
+
+# ── OS / Editor ───────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+desktop.ini
+.vscode/settings.json
+*.crx
+*.pem

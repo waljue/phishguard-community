@@ -1,0 +1,6 @@
+{
+  "appDescription": {
+    "message": "Detects and blocks Adversary-in-the-Middle (AitM) phishing attacks impersonating Microsoft 365 and Entra ID login pages.",
+    "description": "Extension description shown in browser store"
+  }
+}

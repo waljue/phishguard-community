@@ -1,0 +1,45 @@
+{
+  "manifest_version": 3,
+  "name": "PhishGuard Pro",
+  "version": "1.0.0",
+  "default_locale": "en",
+  "description": "__MSG_appDescription__",
+  "permissions": [
+    "activeTab",
+    "storage",
+    "tabs"
+  ],
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "AitM Block Pro"
+  },
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["detection.js", "content.js"],
+      "run_at": "document_start"
+    }
+  ],
+  "host_permissions": ["<all_urls>"],
+  "storage": {
+    "managed_schema": "managed_schema.json"
+  },
+  "options_ui": {
+    "page": "options.html",
+    "open_in_tab": true
+  },
+  "icons": {
+    "16":  "assets/icon16.png",
+    "48":  "assets/icon48.png",
+    "128": "assets/icon128.png"
+  },
+  "web_accessible_resources": [
+    {
+      "resources": ["assets/*"],
+      "matches": ["<all_urls>"]
+    }
+  ]
+}

@@ -1,0 +1,58 @@
+name: Sync Community to Public Repo
+
+# Fires on every push to main that touches community or shared files
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "community/**"
+      - "shared/**"
+      - "assets/**"
+      - "build.js"
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout private repo
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Clone public repo
+        env:
+          PUBLIC_REPO_TOKEN: ${{ secrets.PUBLIC_REPO_TOKEN }}
+        run: |
+          git clone "https://x-access-token:${PUBLIC_REPO_TOKEN}@github.com/${{ vars.PUBLIC_REPO }}.git" public-repo
+
+      - name: Sync files
+        run: |
+          # Copy community-relevant files to public repo
+          rsync -av --delete community/ public-repo/community/
+          rsync -av --delete shared/   public-repo/shared/
+          rsync -av --delete assets/   public-repo/assets/
+          cp build.js public-repo/build.js
+
+          # Copy workflows (only the release workflow — not this sync workflow)
+          mkdir -p public-repo/.github/workflows
+          cp .github/workflows/release.yml public-repo/.github/workflows/release.yml
+
+      - name: Commit and push to public repo
+        env:
+          PUBLIC_REPO_TOKEN: ${{ secrets.PUBLIC_REPO_TOKEN }}
+        run: |
+          cd public-repo
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          git add -A
+          if git diff --cached --quiet; then
+            echo "No changes to sync."
+            exit 0
+          fi
+
+          COMMIT_MSG=$(git -C .. log -1 --pretty=format:"sync: %s (%h)")
+          git commit -m "$COMMIT_MSG"
+          git push

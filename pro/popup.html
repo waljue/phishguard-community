@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PhishGuard Pro</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      width: 300px;
+      font-family: 'Inter', 'Segoe UI', system-ui, Arial, sans-serif;
+      font-size: 13px;
+      color: #0b1f33;
+      background: #ffffff;
+    }
+
+    .header {
+      background: linear-gradient(90deg, #00a19a 0%, #008a84 100%);
+      padding: 11px 14px;
+      display: flex;
+      align-items: center;
+      gap: 9px;
+    }
+    .header img {
+      width: 20px;
+      height: 20px;
+      object-fit: contain;
+      flex-shrink: 0;
+    }
+    .header-text { display: flex; flex-direction: column; gap: 1px; }
+    .header-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: #ffffff;
+      letter-spacing: 0.02em;
+    }
+    .header-sub {
+      font-size: 10px;
+      color: rgba(255,255,255,0.75);
+      font-weight: 400;
+    }
+
+    .body { padding: 14px; }
+
+    .domain-box {
+      background: #f4f7f8;
+      border: 1px solid #e3ecef;
+      border-left: 3px solid #00a19a;
+      border-radius: 4px;
+      padding: 8px 10px;
+      margin-bottom: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .domain-label {
+      font-size: 9px;
+      font-weight: 700;
+      color: #6b7280;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+    .domain-value {
+      font-size: 12px;
+      font-weight: 700;
+      font-family: 'JetBrains Mono', 'Courier New', monospace;
+      color: #0b1f33;
+      word-break: break-all;
+    }
+
+    .desc {
+      font-size: 12px;
+      color: #4b5563;
+      line-height: 1.5;
+      margin-bottom: 12px;
+    }
+
+    .btn-report {
+      width: 100%;
+      padding: 10px 14px;
+      background: #00a19a;
+      color: #ffffff;
+      border: none;
+      border-radius: 6px;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background 0.15s;
+      font-family: inherit;
+    }
+    .btn-report:hover:not(:disabled) { background: #008a84; }
+    .btn-report:disabled { opacity: 0.6; cursor: not-allowed; }
+
+    .no-webhook {
+      background: #f4f7f8;
+      border: 1px solid #e3ecef;
+      border-radius: 6px;
+      padding: 10px 12px;
+      font-size: 12px;
+      color: #6b7280;
+      line-height: 1.5;
+    }
+    .no-webhook a {
+      color: #00a19a;
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    .status {
+      margin-top: 10px;
+      font-size: 12px;
+      font-weight: 600;
+      text-align: center;
+      min-height: 18px;
+    }
+    .status.ok    { color: #059669; }
+    .status.error { color: #ef4444; }
+    .status.info  { color: #6b7280; }
+
+    .footer {
+      border-top: 1px solid #e3ecef;
+      padding: 8px 14px;
+      display: flex;
+      justify-content: flex-end;
+    }
+    .footer a {
+      font-size: 11px;
+      color: #9ca3af;
+      text-decoration: none;
+    }
+    .footer a:hover { color: #00a19a; }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <img id="logo" src="assets/baseit-logo.png" alt="" />
+    <div class="header-text">
+      <span class="header-title">PhishGuard <span style="background:rgba(255,255,255,0.2);padding:1px 5px;border-radius:3px;font-size:10px">PRO</span></span>
+      <span class="header-sub">Phishing Protection</span>
+    </div>
+  </div>
+
+  <div class="body">
+    <div class="domain-box">
+      <span class="domain-label">Current page</span>
+      <span class="domain-value" id="domainVal">—</span>
+    </div>
+
+    <p class="desc" id="desc">Suspect this page is a phishing site? Send a report including a screenshot to your security team.</p>
+
+    <div id="reportWrap">
+      <button class="btn-report" id="reportBtn">Report this page as phishing</button>
+    </div>
+
+    <div id="noWebhook" class="no-webhook" hidden>
+      No webhook configured. <a id="optionsLink" href="#">Open settings</a> to enable incident reporting.
+    </div>
+
+    <div class="status" id="status"></div>
+  </div>
+
+  <div class="footer">
+    <a id="settingsLink" href="#">Settings</a>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>

@@ -1,0 +1,15 @@
+{
+  "name": "phishguard",
+  "version": "1.0.0",
+  "description": "Browser extension detecting AitM phishing attacks on Microsoft 365 / Entra ID login pages.",
+  "license": "MIT",
+  "scripts": {
+    "build":            "node build.js",
+    "build:community":  "node build.js community",
+    "build:pro":        "node build.js pro",
+    "release": "node -e \"const v=process.argv[1]; if(!v||!/^v\\\\d/.test(v)){console.error('Usage: npm run release v1.2.3');process.exit(1);} require('child_process').execSync('git tag '+v+' && git push origin '+v,{stdio:'inherit'});\" --"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

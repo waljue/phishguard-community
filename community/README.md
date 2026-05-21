@@ -209,3 +209,4 @@ MIT — free to use, modify, and distribute. See [LICENSE](LICENSE).
 
 *PhishGuard Community Edition is a project by [whennotif•](https://whennotif.io) — enterprise security, no filter.*
 
+
